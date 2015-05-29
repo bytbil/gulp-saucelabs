@@ -5,18 +5,12 @@ node_js:
 
 env:
   global:
-  - secure: |-
-      RtkktGYx5Diounj1rD8EbWZICRtN1/LiAkhK49A2eS0dtkfPEEByPWkynC9f
-      4FYLDEoNXhRHFNL/j87QNeagpowuG7hRSt0Ftk9g+Qzg7acpiQeQXMuZFgsj
-      TGrWvD/yT7VBaoYkAYOTFR5/T0mbUdFZcNUFsohJma8GZ6zug5s=
-  - secure: |-
-      IYuxUdwc9Xe+UOWoNvD/TS4yNaM3LEtiM3NIYtOaC4AIqUYl6f1pPVOG6kPh
-      rAQ4HdtE4XX5m1vdSmeeH8iL6jMQrjeQEK59HEDHU7Pyp1V9tpOVO8CjZ6/j
-      5A1GkbdFX4nbIttln83SvUps+ShVbCkiOJDtzUUx6Y7D0n2mqtg=
-  - secure: |-
-      fZXuDKZBDY8anYaoZE3M6f+5U9oOxsYu6cR+h7zXP5P+I5djwO9/bIduJ638
-      Q3uHy4jRu/PjNbMW/Eq9LFbdI7odNiOtZqikE0dvQvrlFS3Z+XqXES4I1ef8
-      zkP183w3LESZo2MA/iWtADxSY8e4ws1UJ7gwNH4P2sw+Qcxr+Q4=
+    - SAUCE_USERNAME="osbdemo"
+
+addons:
+  jwt:
+     saucelabs:
+        secure: "txjn9yM8sO6f90LPNhc/nmAPOFZNBT7nt8f5OZh1MAfltcPqupwEtQr7hHhSdnNWb+4SYHrrhRKy0YA4GdsC356KcIhJtTfKnckEasmr30U2Z6Kt5Wx71FktFiLR2D4aezQx0sgQOJ1kX/Myokpk8hAgP1Ho/ifmnrsSbjBX10M="
 
 install:
   - npm install -g grunt-cli
