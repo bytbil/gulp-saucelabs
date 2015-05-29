@@ -10,7 +10,7 @@ env:
 addons:
   jwt:
      saucelabs:
-        secure: "txjn9yM8sO6f90LPNhc/nmAPOFZNBT7nt8f5OZh1MAfltcPqupwEtQr7hHhSdnNWb+4SYHrrhRKy0YA4GdsC356KcIhJtTfKnckEasmr30U2Z6Kt5Wx71FktFiLR2D4aezQx0sgQOJ1kX/Myokpk8hAgP1Ho/ifmnrsSbjBX10M="
+        secure: "LlNf6Vf4/PpbC49NmzL2tt4nh1Ok6btLQYKh5Y5Ii3n76/XMEmkg92+Wb0UROo7jemE3N3FZkVymLObV3eCrD50279Gw3+yAanWncZA7SVTUVFVWZAZqNm/fN10zUvwYfzGOHbd9jeZEd2Chdf5Cm3tBgVVH59hSgxBkgtQU98A="
 
 install:
   - npm install -g grunt-cli
