@@ -168,7 +168,7 @@ module.exports = function (grunt) {
     statusCheckAttempts: 90,
     testname: '',
     browsers: [{}],
-    tunnelArgs: [],
+    tunnelArgs: ['--debug'],
     sauceConfig: {},
     maxRetries: 0
   };
