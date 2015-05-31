@@ -5,7 +5,7 @@ node_js:
 
 env:
   global:
-    - SAUCE_USERNAME="osbdemo"
+    - SAUCE_USERNAME="sourishkrout"
 
 addons:
   jwt:
