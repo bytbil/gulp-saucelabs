@@ -1,9 +1,9 @@
 'use strict';
 
-module.exports = function (grunt) {
+module.exports = function (gulp, plugins) {
   var Q = require('q');
   var _ = require('lodash');
-  var utils = require('./utils')(grunt);
+  var utils = require('./utils')(gulp, plugins);
   var reJobId = /^[a-z0-9]{32}$/;
 
   Q.longStackSupport = true;
@@ -153,7 +153,7 @@ module.exports = function (grunt) {
             if (attempts === 0) {
               var errorMessage = "After trying " + me.statusCheckAttempts +
                                  " times with a delay of " + me.pollInterval +
-                                 "s, this job never reached 'complete' status.";
+                                 "ms, this job never reached 'complete' status.";
               throw new Error(errorMessage);
             } else {
               return Q

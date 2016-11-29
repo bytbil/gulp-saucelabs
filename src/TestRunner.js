@@ -1,10 +1,10 @@
 'use strict';
 
-module.exports = function (grunt) {
+module.exports = function (gulp, plugins) {
   var _ = require('lodash');
   var Q = require('q');
-  var utils = require('./utils')(grunt);
-  var Job = require('./Job')(grunt);
+  var utils = require('./utils')(gulp, plugins);
+  var Job = require('./Job')(gulp, plugins);
   var WrapperError = require('./WrapperError');
 
   Q.longStackSupport = true;

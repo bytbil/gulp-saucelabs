@@ -1,16 +1,8 @@
-grunt-saucelabs
+gulp-saucelabs
 ---------------------
+A Gulp task for running QUnit, Jasmine, Mocha, YUI tests, or any framework using Sauce Labs' Cloudified Browsers.
 
-[![Build Status](https://api.travis-ci.org/axemclion/grunt-saucelabs.png?branch=master)](https://travis-ci.org/axemclion/grunt-saucelabs)
-[![Selenium Test Status](https://saucelabs.com/buildstatus/grunt-sauce)](https://saucelabs.com/u/grunt-sauce)
-
-[![Selenium Test Status](https://saucelabs.com/browser-matrix/grunt-sauce.svg)](https://saucelabs.com/u/grunt-sauce)
-
-[![Dependency Status](https://david-dm.org/axemclion/grunt-saucelabs.png)](https://david-dm.org/axemclion/grunt-saucelabs) [![devDependency Status](https://david-dm.org/axemclion/grunt-saucelabs/dev-status.png)](https://david-dm.org/axemclion/grunt-saucelabs#info=devDependencies)
-
-A Grunt task for running QUnit, Jasmine, Mocha, YUI tests, or any framework using Sauce Labs' Cloudified Browsers.
-
-[Grunt](http://gruntjs.com/) is a task-based command line build tool for JavaScript projects, based on nodejs.
+[Gulp](http://gulpjs.com/) is a task-based command line build tool for JavaScript projects, based on nodejs.
 [QUnit](http://qunitjs.com/) is a powerful, easy-to-use JavaScript unit test suite used by the jQuery, jQuery UI and jQuery Mobile projects and is capable of testing any generic JavaScript code, including itself!
 [Jasmine](http://jasmine.github.io/) is a behavior-driven development framework for testing JavaScript code.
 [Mocha](https://github.com/mochajs/mocha) is a JavaScript test framework for running serial asynchronous tests.
@@ -19,31 +11,18 @@ A Grunt task for running QUnit, Jasmine, Mocha, YUI tests, or any framework usin
 
 About the tool
 --------------
-The [grunt-contrib-qunit](https://github.com/gruntjs/grunt-contrib-qunit) task runs QUnit based test suites on [PhantomJS](http://phantomjs.org/).
 The `saucelabs-qunit` task is very similar but runs the test suites on the cloudified browser environment provided by Sauce Labs. This ensures that subject of the test runs across different browser environment.
 The task also uses [Sauce Connect](https://saucelabs.com/docs/connect) to establish a tunnel between Sauce Labs browsers and the machine running Grunt to load local pages. This is typically useful for testing pages on localhost that are not publicly accessible on the internet.
 The `saucelabs-jasmine` runs [Jasmine](http://pivotal.github.io/jasmine/) tests in the Sauce Labs browser. The `saucelabs-jasmine` task requires `jasmine-1.3.0`. There are also `saucelabs-mocha` and `saucelabs-yui` tasks that let you run your Mocha and YUI tests on Sauce Labs cloudified browser environment.
 
 Usage
 ------
-This task is available as a [node package](https://npmjs.org/package/grunt-saucelabs) and can be installed as `npm install grunt-saucelabs`. It can also be included as a devDependency in package.json in your node project.
+This task is available as a [node package](https://npmjs.org/package/gulp-saucelabs) and can be installed as `npm install gulp-saucelabs`. It can also be included as a devDependency in package.json in your node project.
 
-To use the task in `grunt.js`, load the npmTask.
-
-
-```javascript
-grunt.loadNpmTasks('grunt-saucelabs');
-
-```
-
-In the `grunt.initConfig`, add the configuration that looks like the following
+To use the task in `gulpfile.js` create a config
 
 ```javascript
-var request = require('request');
-...
-'saucelabs-qunit': {
-  all: {
-    options: {
+const config = {      
       username: 'saucelabs-user-name', // if not provided it'll default to ENV SAUCE_USERNAME (if applicable)
       key: 'saucelabs-key', // if not provided it'll default to ENV SAUCE_ACCESS_KEY (if applicable)
       urls: ['www.example.com/qunitTests', 'www.example.com/mochaTests'],
@@ -56,10 +35,15 @@ var request = require('request');
       }]
       // optionally, he `browsers` param can be a flattened array:
       // [["XP", "firefox", 19], ["XP", "chrome", 31]]
-    }
-  }
 }
 
+```
+
+Then require the plugin and instantiate it with the config.
+
+```javascript
+  const saucelabs   = require('gulp-saucelabs');
+  gulp.task('saucelabs', saucelabs(config));
 ```
 
 The configuration of `saucelabs-jasmine`, `saucelabs-mocha`, `saucelabs-yui`, and `saucelabs-custom` are exactly the same.
@@ -86,7 +70,6 @@ Full list of parameters which can be added to a saucelabs-* task:
 * __maxRetries__: Specifies how many times the timed out tests should be retried (default: 0). _Optional_
 * __public__: The [job visibility level](https://docs.saucelabs.com/reference/test-configuration/#job-visibility). Defaults to 'team'. _Optional_
 
-A typical `test` task running from Grunt could look like `grunt.registerTask('test', ['server', 'qunit', 'saucelabs-qunit']);` This starts a server and then runs the QUnit tests first on PhantomJS and then using the Sauce Labs browsers.
 
 Exposing Test Results to the Sauce Labs API
 -------------------------------------------
@@ -238,112 +221,19 @@ When running the tests for this project, we need to test the case where a test *
           }
         });
       }
+      onTestSuiteComplete: function(result){
+        // Called after all tests were executed
+        ...
+      }
     }
   }
 }
 ```
 
-Examples
---------
-Some projects that use this task are as follows. You can take a look at their GruntFile.js for sample code
-
-* [This project](https://github.com/axemclion/grunt-saucelabs/blob/master/Gruntfile.js)
-* [WinJS](http://try.buildwinjs.com/#status)
-* [Jquery-IndexedDB](https://github.com/axemclion/jquery-indexeddb/blob/master/GruntFile.js)
-* [IndexedDBShim](https://github.com/axemclion/IndexedDBShim/blob/master/Gruntfile.js)
-
-If you have a project that uses this plugin, please add it to this list and send a pull request.
-
-
-Integration with a CI system
-----------------------------
-Grunt tasks are usually run alongside a continuous integration system. For example, when using [Travis](https://travis-ci.org), adding the following lines in the package.json ensures that the task is installed with `npm install` is run. Registering Sauce Labs in test task using `grunt.registerTask('test', ['server', 'saucelabs-qunit']);` ensures that the CI environment runs the tests using `npm test`.
-To secure the Sauce Key, the CI environment can be configured to provide the key as an environment variable instead of specifying it file. CI Environments like Travis provide [ways](http://about.travis-ci.org/docs/user/build-configuration/#Secure-environment-variables) to add secure variables in the initial configuration.
-The [IndexedDBShim](http://github.com/axemclion/IndexedDBShim) is a project that uses this plugin in a CI environment. Look at the [.travis.yml](https://github.com/axemclion/IndexedDBShim/blob/master/.travis.yml) and the [grunt.js](https://github.com/axemclion/IndexedDBShim/blob/master/Gruntfile.js) for usage example.
+Contribution
+---------
+Forked from https://github.com/axemclion/grunt-saucelabs
 
 Changelog
 ---------
-####8.6.1####
-* added `public` parameter, so tests can be made Public on Sauce Labs
-* when retrying a test, browser name and test url are output to stdout
-* default build number added when running tests locally
-* update Sauce Connect to v4.3.7\
-* updated npm dependencies
-* fixed a bug where YUI or Qunit tests were detected as Passed, when they actually failed
-
-####8.6.0####
-* check job completion a maximum number of times
-* added a config setting, `statusCheckAttempts` which defaults to 90
-* updated to Sauce Connect v4.3.6
-* update dependencies
-
-####8.5.0####
-* fix ECONNRESET errors caused by network connectivity issues
-* better error logging
-
-####8.4.1####
-* updated sauce-tunnel to v2.1.1 (and therefore Sauce Connect to v4.3.5)
-
-####8.4.0####
-* polling a job for its status now retries
-* add `maxPollRetries` parameter, which specifies the number of status-requests to make before giving up on a job
-
-####8.3.3####
-* improvements to README
-* add a 'tags' parameter to the config, to allow setting tags on tests
-* optionally, you can set "name" and "tags" onto the "browser" object and they'll be applied to the corresponding job
-
-####8.3.2####
-* fixed a bug where DELETE commands which errored on the Sauce side caused test execution to halt
-
-####8.3.0####
-* add `testPageUrl` to `result` object. Indicates the url which was the target of the test.
-
-####8.2.2####
-* `browsers` param can optionally be an array identical to the one used by the Sauce API. ex: `["XP", "firefox", "19"]`
-
-####8.2.1####
-* update dependencies
-
-####8.2.0####
-* upgrade to sauce-tunnel 2.1 (SC 3.4)
-
-####8.1.1####
-* better detection and handling or errors which happen on Sauce Labs
-
-####8.1.0####
-* added retry logic, thanks again to @gvas, now you can use `maxRetries` parameter to automatically retry tests which fail
-
-####8.0.3####
-* fixed bug, sauce job urls displayed in log properly again
-
-####8.0.2####
-* fixed bug, `testname` option not working
-
-####8.0.1####
-* Major refactor, thanks to all the work done by @gvas
-* async `onTestComplete` callback fixed. Now the callback is passed two args: result, callback. `callback` is a node style callback (err, result);
-* `/examples` directory added, while the actual tests and Gruntfile are now more complicated (and useful)
-
-####7.0.0####
-* `throttled` parameter now represents the max number of jobs sent concurrently. Previously was `throttled * browsers.length`
-
-####6.0.0####
-* default `testInterval` changed to 2000ms
-* added `max-duration`, sauceConfig, and sauceTunnel params
-
-####5.1.3####
-* update to sauce-tunnel 2.0.6, which uses Sauce Connect 4.2
-* queued job throttling added
-
-####5.1.2####
-* use sauce-tunnel-sc3-1 to protect against heartbleed bug
-
-####5.1.1####
-* Qunit reporting code made ecma3 compatible
-* Qunit reporting code doesn't clober the `.done()` callback
-* Updated dependencies
-
-####5.1.0####
-* Added `custom` framework
-* Updated the test reporting on example pages to provide details when tests fail
+####1.0.0####
