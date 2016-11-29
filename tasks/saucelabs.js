@@ -2,7 +2,7 @@
 
 module.exports = function (gulp, plugins, config) {
     var Q = require('q');
-    var SauceTunnel = require('sauce-tunnel');
+    var SauceTunnel = require('sauce-connect-tunnel');
     var TestRunner = require('../src/TestRunner')(gulp);
     var colors = plugins.util.colors
     var SUCCESS = 'ok'
