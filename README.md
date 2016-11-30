@@ -13,8 +13,35 @@ npm install --save-dev gulp-saucelabs
 ## Usage
 ### Simple Usage
 ```javascript
-var saucelabs = require('gulp-saucelabs');
-gulp.task('saucelabs', saucelabs(config));
+    const saucelabs = require('gulp-saucelabs');
+    const connect   = require('gulp-connect');
+
+    // Saucelabs
+    gulp.task('saucelabs', () => {
+        const sauceConfig = config['saucelabs-qunit'];
+        sauceConfig.onTestSuiteComplete = (status) => {
+            if (!status) {
+                throw new $.gutil.PluginError({
+                    plugin: 'gulp-saucelabs',
+                    message: 'Tests failed'
+                });
+            }
+        };
+
+        return saucelabs(sauceConfig);
+    });
+
+    // Start local http server
+    gulp.task('connect', () => {
+        connect.server({ port: 3000, root: './' });
+    });
+
+    // Close down the http server
+    gulp.task('disconnect', () => {
+        connect.serverClose();
+    });
+
+    gulp.task('test-saucelabs', ['connect', 'saucelabs'], () => gulp.start('disconnect'));
 ```
 
 ## Options
