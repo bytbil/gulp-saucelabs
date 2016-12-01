@@ -47,7 +47,7 @@ module.exports = function (gulp, plugins, config) {
             case 'jobCompleted':
                 var STATUS = (notification.passed) ? SUCCESS : ERROR;
 
-                log('Tested ' + notification.url);
+                log('Tested: ' + notification.url);
                 log('Platform: ' + notification.platform);
 
                 if (notification.tunnelId && unsupportedPort(notification.url)) {
@@ -55,7 +55,7 @@ module.exports = function (gulp, plugins, config) {
                 }
 
                 log('Passed: ', + notification.passed, STATUS);
-                log('Url ' + notification.jobUrl);
+                log('Url: ' + notification.jobUrl);
                 break;
             case 'testCompleted':
                 if (notification.passed) {
