@@ -39,9 +39,9 @@ module.exports = function (gulp, plugins) {
     this.maxRetries = properties.maxRetries;
     this.onProgress = onProgress;
 
-    if (properties['max-duration']) {
-      // max-duration is actually a sauce selenium capability
-      this.sauceConfig['max-duration'] = properties['max-duration'];
+    if (properties['maxDuration']) {
+      // maxDuration is actually a sauce selenium capability
+      this.sauceConfig['maxDuration'] = properties['maxDuration'];
     }
     this.urls = this.urls.length !== undefined ? this.urls : [this.urls];
     this.numberOfJobs = this.browsers.length * this.urls.length;
