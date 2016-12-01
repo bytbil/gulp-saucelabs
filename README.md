@@ -13,43 +13,43 @@ npm install --save-dev gulp-saucelabs
 ## Usage
 ### Simple Usage
 ```javascript
-    const saucelabs = require('gulp-saucelabs');
-    const connect   = require('gulp-connect');
+const saucelabs = require('gulp-saucelabs');
+const connect   = require('gulp-connect');
 
-    // Saucelabs
-    gulp.task('saucelabs', () => {
-        const config = {
-          urls: ['http://localhost:3000/tests/qunit/index.html'],
-          testname: 'My test',
-          framework: 'qunit',
-          browsers: [
-              {
-                  browserName: "MicrosoftEdge",
-                  platform: "Windows 10",
-                  version: "latest"
-              }
-          ],
-          onTestSuiteComplete: function(status) {
-              if (status) {
-                  console.log('All tests passed!');
-              }
-          };
-        }
+// Saucelabs
+gulp.task('saucelabs', () => {
+    const config = {
+      urls: ['http://localhost:3000/tests/qunit/index.html'],
+      testname: 'My test',
+      framework: 'qunit',
+      browsers: [
+          {
+              browserName: "MicrosoftEdge",
+              platform: "Windows 10",
+              version: "latest"
+          }
+      ],
+      onTestSuiteComplete: function(status) {
+          if (status) {
+              console.log('All tests passed!');
+          }
+      };
+    }
 
-        return saucelabs(config);
-    });
+    return saucelabs(config);
+});
 
-    // Start local http server
-    gulp.task('connect', () => {
-        connect.server({ port: 3000, root: './' });
-    });
+// Start local http server
+gulp.task('connect', () => {
+    connect.server({ port: 3000, root: './' });
+});
 
-    // Close down the http server
-    gulp.task('disconnect', () => {
-        connect.serverClose();
-    });
+// Close down the http server
+gulp.task('disconnect', () => {
+    connect.serverClose();
+});
 
-    gulp.task('test-saucelabs', ['connect', 'saucelabs'], () => gulp.start('disconnect'));
+gulp.task('test-saucelabs', ['connect', 'saucelabs'], () => gulp.start('disconnect'));
 ```
 
 ## Options
