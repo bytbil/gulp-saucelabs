@@ -6,9 +6,10 @@
     "name": "Marc Neander",
     "email": "marc.neander@bytbil.com"
   },
+  "homepage": "https://github.com/bytbil/gulp-saucelabs",
   "repository": {
     "type": "git",
-    "url": "git://github.com/bytbil/gulp-saucelabs"
+    "url": "git://github.com/bytbil/gulp-saucelabs.git"
   },
   "bugs": {
     "url": "https://github.com/bytbil/gulp-saucelabs/issues"
