@@ -18,17 +18,25 @@ npm install --save-dev gulp-saucelabs
 
     // Saucelabs
     gulp.task('saucelabs', () => {
-        const sauceConfig = config['saucelabs-qunit'];
-        sauceConfig.onTestSuiteComplete = (status) => {
-            if (!status) {
-                throw new $.gutil.PluginError({
-                    plugin: 'gulp-saucelabs',
-                    message: 'Tests failed'
-                });
-            }
-        };
+        const config = {
+          urls: ['http://localhost:3000/tests/qunit/index.html'],
+          testname: 'My test',
+          framework: 'qunit',
+          browsers: [
+              {
+                  browserName: "MicrosoftEdge",
+                  platform: "Windows 10",
+                  version: "latest"
+              }
+          ],
+          onTestSuiteComplete: function(status) {
+              if (status) {
+                  console.log('All tests passed!');
+              }
+          };
+        }
 
-        return saucelabs(sauceConfig);
+        return saucelabs(config);
     });
 
     // Start local http server
