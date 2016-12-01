@@ -29,7 +29,7 @@ gulp.task('saucelabs', () => {
               version: "latest"
           }
       ],
-      onTestSuiteComplete: function(status) {
+      onTestSuiteComplete: (status) => {
           if (status) {
               console.log('All tests passed!');
           }
@@ -55,7 +55,7 @@ gulp.task('test-saucelabs', ['connect', 'saucelabs'], () => gulp.start('disconne
 ## Options
 Example:
 ```javascript
-var config = {
+const config = {
     username: 'foo-bar',
     key: 'xxxx-xxxx-xxxx-xxxx-xxxx',
     urls: ['http://localhost:3000/tests/index.html'],
@@ -78,7 +78,7 @@ var config = {
             platform: "Windows 8"
         }
     ],
-    onTestSuiteComplete: function(status) {
+    onTestSuiteComplete: (status) => {
         if (status) {
             console.log('All tests passed!');
         }
