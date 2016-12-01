@@ -1,17 +1,17 @@
 {
   "name": "gulp-saucelabs",
   "description": "Gulp task running tests using Sauce Labs. Supports QUnit, Jasmine, Mocha and YUI tests",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "author": {
     "name": "Marc Neander",
     "email": "marc.neander@bytbil.com"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/bytbil/gulp-saucelabs.git"
+    "url": "git://github.com/bytbil/gulp-saucelabs"
   },
   "bugs": {
-    "url": "https://github.com/bytbil/gulp-saucelabs.git/issues"
+    "url": "https://github.com/bytbil/gulp-saucelabs/issues"
   },
   "licenses": [
     {
