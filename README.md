@@ -151,4 +151,6 @@ Forked from https://github.com/axemclion/grunt-saucelabs
 
 Changelog
 ---------
-####0.1.0####
+####0.1.3####
+
+Removed YUI support
