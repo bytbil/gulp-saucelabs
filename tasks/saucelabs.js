@@ -4,26 +4,28 @@ module.exports = function (gulp, plugins, config) {
     var Q = require('q');
     var SauceTunnel = require('sauce-connect-tunnel');
     var TestRunner = require('../src/TestRunner')(gulp);
-    var colors = plugins.util.colors
-    var SUCCESS = 'ok'
-    var ERROR = 'error'
-    var WARN = 'warning'
+    var colors = plugins.util.colors;
+    var SUCCESS = 'ok';
+    var ERROR = 'error';
+    var WARN = 'warning';
 
     var log = function (title, text, level) {
         if (level === 'ok') {
-            plugins.util.log(colors.green(title), text)
+            plugins.util.log(colors.green(title), text);
         } else if (level === 'error') {
-            plugins.util.log(colors.red(title), text)
+            plugins.util.log(colors.red(title), text);
         } else if (level === 'warning') {
-            plugins.util.log(colors.yellow(title), text)
+            plugins.util.log(colors.yellow(title), text);
         } else {
-            plugins.util.log(title)
+            plugins.util.log(title);
         }
     }
 
     Q.longStackSupport = true;
 
     function reportProgress(notification) {
+        var STATUS = (notification.passed) ? SUCCESS : ERROR;
+
         switch (notification.type) {
             case 'tunnelOpen':
                 log('=> Starting Tunnel to Sauce Labs');
@@ -45,30 +47,28 @@ module.exports = function (gulp, plugins, config) {
                 log(notification.startedJobs + '/' + notification.numberOfJobs + ' tests started');
                 break;
             case 'jobCompleted':
-                var STATUS = (notification.passed) ? SUCCESS : ERROR;
-
                 log('Tested: ' + notification.url);
-                log('Platform: ' + notification.platform);
+                log('Platform: ' + notification.platform.join(', '));
 
                 if (notification.tunnelId && unsupportedPort(notification.url)) {
                     log('Warning:', 'This url might use a port that is not proxied by Sauce Connect.', WARN);
                 }
 
-                log('Passed: ', + notification.passed, STATUS);
+                log('Passed:', notification.passed, STATUS);
                 log('Url: ' + notification.jobUrl);
                 break;
             case 'testCompleted':
                 if (notification.passed) {
-                    log('OK:', 'All tests completed with status ' + notification.passed, SUCCESS);
+                    log('OK:', 'All tests completed with status ' + notification.passed, STATUS);
                 } else {
-                    log('FAIL:', 'All tests completed with status', ERROR);
+                    log('FAIL:', 'All tests completed with status ' + notification.passed, STATUS);
                 }
                 break;
             case 'retrying':
                 plugins.debug('Timed out, retrying URL ' + notification.url + ' on browser ' + JSON.stringify(notification.browser));
                 break;
             default:
-                log('Error:', 'Unexpected notification type', ERROR);
+                log('Error:', 'Unexpected notification type', STATUS);
         }
     }
 

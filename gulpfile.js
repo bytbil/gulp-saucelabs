@@ -6,7 +6,11 @@ var saucelabs = require('./index');
 var packageJSON = require('./package.json');
 
 var browsers = [
-        { browserName: 'googlechrome', platform: 'linux' }
+    {
+        browserName: 'chrome',
+        platform: 'Windows 10',
+        version: 'latest'
+    }
 ];
 
 function callbackSuccess(status) {
@@ -19,7 +23,7 @@ function callbackSuccess(status) {
 }
 
 function callbackFail(status) {
-    if(status) {
+    if (status) {
         throw new $.gutil.PluginError({
             plugin: 'gulp-saucelabs',
             message: 'Tests failed'
@@ -69,13 +73,6 @@ var config = {
         urls: ['http://localhost:3000/test/mocha/test/browser/fails.html'],
         onTestSuiteComplete: callbackFail,
         browsers
-    },
-    yui: {
-        build: 'NONAME',
-        framework: 'yui',
-        urls: ['http://localhost:3000/test/yui/index.html'],
-        onTestSuiteComplete: callbackSuccess,
-        browsers
     }
 }
 
@@ -88,7 +85,7 @@ gulp.task('default', ['connect'], () => {
         .then(() => saucelabs(config.jasmineFail))
         .then(() => saucelabs(config.mocha))
         .then(() => saucelabs(config.mochaFail))
-        .then(() => saucelabs(config.yui))
+        .then(() => gulp.start('disconnect'));
 });
 
 // Start local http server

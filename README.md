@@ -100,7 +100,7 @@ The build number for this test. _Optional_
 An array or URLs that will be loaded in the browsers, one after another. _Required_
 
 #### `framework`
-Which framework to test. Options: `qunit`, `jasmine`, `mocha`, `yui`, `custom`. _Required_
+Which framework to test. Options: `qunit`, `jasmine`, `mocha`, `custom`. _Required_
 
 #### `testname`
 name of the test, displayed on the SauceLabs dashboard. _Optional_

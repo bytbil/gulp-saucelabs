@@ -15,8 +15,7 @@ module.exports = function (gulp, plugins) {
    *
    * @constructor
    * @param {Object} properties - Configuration options.
-   * @param {String} framework - The unit test framework's name. Can be 'yasmine', 'qunit',
-   *   'YUI Test', 'mocha' or 'custom'.
+   * @param {String} framework - The unit test framework's name. Can be 'yasmine', 'qunit', 'mocha' or 'custom'.
    * @param {Function} onProgress - Progress handler.
    */
   var TestRunner = function (properties, framework, onProgress) {
