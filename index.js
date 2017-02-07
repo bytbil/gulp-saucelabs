@@ -6,12 +6,21 @@ module.exports = function(config) {
     var framework = (config) ? config.framework : undefined;
     var sauce = require('./tasks/saucelabs')(gulp, plugins, config)
 
-    var callback = function(deferred) {
+    var callbackDone = function(deferred) {
         return function(passed) {
-            if(config && typeof config.onTestSuiteComplete === 'function'){
+            if (config && typeof config.onTestSuiteComplete === 'function'){
                 config.onTestSuiteComplete(passed)
             }
-            deferred.resolve()
+            deferred.resolve();
+        }
+    }
+
+    var callbackExcept = function(deferred) {
+        return function() {
+            if (config && typeof config.onException === 'function'){
+                config.onException()
+            }
+            deferred.resolve();
         }
     }
 
@@ -22,10 +31,8 @@ module.exports = function(config) {
     }
 
     var deferred = Q.defer();
-    sauce(framework, callback(deferred))
+    sauce(framework, callbackDone(deferred), callbackExcept(deferred))
 
     return deferred.promise;
 
 }
-
-
