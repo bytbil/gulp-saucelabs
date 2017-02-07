@@ -103,7 +103,7 @@ module.exports = function (gulp, plugins, config) {
         return tunnel;
     }
 
-    function runTask(arg, framework, callback) {
+    function runTask(arg, framework, callbackDone, callbackException) {
         var tunnel;
 
         return Q
@@ -146,18 +146,25 @@ module.exports = function (gulp, plugins, config) {
                         deferred.resolve();
                     });
 
+                    setTimeout(function() {
+                        if(!deferred.promise.isFulfilled()) {
+                            callbackException();
+                            deferred.resolve()
+                        }
+                    }, arg.connectionTimeout);
+
                     return deferred.promise;
                 }
             })
             .then(
-            function (passed) {
-                callback(passed);
-            },
-            function (error) {
-                throw new plugins.util.PluginError('gulp-saucelabs', {
-                    message: error.stack || error.toString()
-                })
-            }
+                function (passed) {
+                    callbackDone(passed);
+                },
+                function (error) {
+                    throw new plugins.util.PluginError('gulp-saucelabs', {
+                        message: error.stack || error.toString()
+                    })
+                }
             )
             .done();
     }
@@ -193,12 +200,13 @@ module.exports = function (gulp, plugins, config) {
         browsers: [{}],
         tunnelArgs: ['--verbose'],
         sauceConfig: {},
-        maxRetries: 0
+        maxRetries: 0,
+        connectionTimeout: 1000 * 60 * 1
     };
 
-    return (framework, cb) => {
+    return (framework, cbDone, cbExcept) => {
         const options = Object.assign({}, defaults, config);
-        runTask(options, framework, cb);
+        runTask(options, framework, cbDone, cbExcept);
     };
 
 };

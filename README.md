@@ -135,6 +135,9 @@ An array of objects representing the [various browsers](https://saucelabs.com/pl
 #### `onTestComplete`
 A callback that is called every time a unit test for a page is complete. Runs per page, per browser configuration. Receives two arguments `(result, callback)`. `result` is the javascript object exposed to SauceLabs as the results of the test. `callback` must be called, node-style (having arguments `err`, `result` where result is a true/false boolean which sets the test result reported to the command line). _Optional_
 
+#### `onException`
+A callback that is called when the tunnel does not close properly and we had to cancel the promise waiting for the tunnel to close.
+
 #### `onTestSuiteComplete`
 A callback that is called when all tests have run and the tunnel has been closed down. The callback receives one argument (boolean) which is true if all tests passed, otherwise false.
 
@@ -151,6 +154,10 @@ Forked from https://github.com/axemclion/grunt-saucelabs
 
 Changelog
 ---------
+
+####0.1.4
+Added callback and timeout for when the tunnel does not stop
+
 ####0.1.3
 
 Removed YUI support
