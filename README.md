@@ -1,10 +1,10 @@
+# **** DEPRECATED ***
+The plugin is deprecated, use https://www.npmjs.com/package/sauce-test-runner instead.
+
 # gulp-saucelabs
 [![Build Status](https://travis-ci.org/bytbil/gulp-saucelabs.svg)](https://travis-ci.org/bytbil/gulp-saucelabs)
 
 Gulp plugin for running tests using SauceLabs automated tests feature to run on several different browsers
-
-# **** DEPRECATED ***
-The plugin is deprecated, use https://www.npmjs.com/package/sauce-test-runner instead.
 
 ## Install
 
