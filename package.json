@@ -1,7 +1,7 @@
 {
   "name": "gulp-saucelabs",
   "description": "Gulp task running tests using Sauce Labs. Supports QUnit, Jasmine and Mocha tests",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "author": {
     "name": "Marc Neander",
     "email": "marc.neander@bytbil.com"
