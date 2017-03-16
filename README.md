@@ -1,3 +1,6 @@
+# **** DEPRECATED ***
+The plugin is deprecated, use https://www.npmjs.com/package/sauce-test-runner instead.
+
 # gulp-saucelabs
 [![Build Status](https://travis-ci.org/bytbil/gulp-saucelabs.svg)](https://travis-ci.org/bytbil/gulp-saucelabs)
 
