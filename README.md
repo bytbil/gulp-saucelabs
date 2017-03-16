@@ -3,6 +3,9 @@
 
 Gulp plugin for running tests using SauceLabs automated tests feature to run on several different browsers
 
+# **** DEPRECATED ***
+The plugin is deprecated, use https://www.npmjs.com/package/sauce-test-runner instead.
+
 ## Install
 
 ```
